@@ -12,7 +12,7 @@ A robust, modern **Personal Finance Dashboard** built with **ASP.NET Core MVC**.
 
 ## 📊 Dashboard Preview
 
-![Dashboard Screenshot](wwwroot/Dashboard.png)
+![Dashboard Screenshot](FinanceApp.Web/wwwroot/Dashboard.png)
 
 ---
 
