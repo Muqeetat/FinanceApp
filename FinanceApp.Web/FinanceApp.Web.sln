@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceApp.Web", "FinanceApp.Web.csproj", "{0BDF1FB6-5DA1-7432-73BC-194E6895F94B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceApp.Tests", "..\FinanceApp.Tests\FinanceApp.Tests.csproj", "{8E7CBFD6-F556-ABE0-5961-E1298F60F5DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BDF1FB6-5DA1-7432-73BC-194E6895F94B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BDF1FB6-5DA1-7432-73BC-194E6895F94B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BDF1FB6-5DA1-7432-73BC-194E6895F94B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BDF1FB6-5DA1-7432-73BC-194E6895F94B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E7CBFD6-F556-ABE0-5961-E1298F60F5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E7CBFD6-F556-ABE0-5961-E1298F60F5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E7CBFD6-F556-ABE0-5961-E1298F60F5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E7CBFD6-F556-ABE0-5961-E1298F60F5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3EA9A5FE-C8A0-4C0C-A08E-4FB40FF1C45F}
+	EndGlobalSection
+EndGlobal

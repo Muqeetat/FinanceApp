@@ -1,0 +1,191 @@
+﻿@model IEnumerable<FinanceApp.Web.Models.Expense>
+
+<div class="container py-4">
+    <h1 class="mb-4">Expenses Overview</h1>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 border-0 h-100" style="border-radius: 20px; background: linear-gradient(145deg, #f8f9fa, #ffffff);">
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="p-2 rounded-3 me-2" style="background-color: #e8eaf6;">
+                            <i class="bi bi-wallet2" style="color: #3f51b5;"></i>
+                        </div>
+                        <span class="text-muted small fw-bold">Account Balance</span>
+                    </div>
+                    <i class="bi bi-three-dots-vertical text-muted"></i>
+                </div>
+                <h2 class="fw-bold mb-3">@ViewBag.TotalBalance.ToString("C")</h2>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                    <span class="text-success small"><i class="bi bi-graph-up"></i> 6% more than last month</span>
+                    <div class="badge border text-muted px-2 py-1">SBI <i class="bi bi-chevron-down"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 border-0 h-100" style="border-radius: 20px; background: linear-gradient(145deg, #f8f9fa, #ffffff);">
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="p-2 rounded-3 me-2" style="background-color: #ffebee;">
+                            <i class="bi bi-arrow-up-right-circle" style="color: #d32f2f;"></i>
+                        </div>
+                        <span class="text-muted small fw-bold">Monthly Expenses</span>
+                    </div>
+                    <i class="bi bi-three-dots-vertical text-muted"></i>
+                </div>
+                <h2 class="fw-bold mb-3">@ViewBag.MonthlyTotal.ToString("C")</h2>
+                <span class="text-danger small"><i class="bi bi-graph-down"></i> 2% less than last month</span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 border-0 h-100" style="border-radius: 20px; background: linear-gradient(145deg, #f8f9fa, #ffffff);">
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="p-2 rounded-3 me-2" style="background-color: #f3e5f5;">
+                            <i class="bi bi-piggy-bank" style="color: #7b1fa2;"></i>
+                        </div>
+                        <span class="text-muted small fw-bold">Total Investment</span>
+                    </div>
+                    <i class="bi bi-three-dots-vertical text-muted"></i>
+                </div>
+                <h2 class="fw-bold mb-3">@ViewBag.TotalInvestment.ToString("C")</h2>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm p-4" style="border-radius: 20px; background-color: #f8f9fa; border: none;">
+                <div class="d-flex justify-content-between mb-3">
+                    <h5 class="fw-bold">Monthly Expenses</h5>
+                    <span class="badge bg-success-subtle text-success" style="font-size: 0.8rem;">
+                        <i class="bi bi-arrow-up"></i> 6%
+                    </span>
+                </div>
+                <div style="height: 300px; position: relative;">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm p-4" style="border-radius: 20px; background-color: #f8f9fa; border: none;">
+                <h5 class="fw-bold mb-3">Top Category</h5>
+                <div style="height: 300px; position: relative;">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold">Recent Transactions</h5>
+        <a asp-action="Create" class="btn btn-success rounded-pill shadow-sm">
+            <i class="bi bi-plus-lg"></i> Add New Expense
+        </a>
+    </div>
+    <div class="card shadow-sm border-0" style="border-radius: 15px; overflow: hidden;">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th class="text-end">Amount</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="align-middle">
+                        <td>@item.Description</td>
+                        <td><span class="badge bg-secondary-subtle text-secondary rounded-pill">@item.Category</span></td>
+                        <td>@item.Date.ToString("MMM dd, yyyy")</td>
+                        <td class="text-end fw-bold">@item.Amount.ToString("C")</td>
+                        <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary rounded-circle shadow-sm" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+    
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Delete this?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle shadow-sm" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Global options to ensure both charts behave the same way
+    const commonOptions = {
+    responsive: true,
+    maintainAspectRatio: false, // This forces the chart to fill the 300px div
+    };
+
+    // --- 1. Monthly Bar Chart ---
+    fetch('/Expenses/GetMonthlyData')
+    .then(res => res.json())
+    .then(data => {
+    new Chart(document.getElementById('monthlyChart'), {
+    type: 'bar',
+    data: {
+    labels: data.map(d => d.month),
+    datasets: [{
+    label: 'Expenses',
+    data: data.map(d => d.total),
+    backgroundColor: '#5e5ce6',
+    borderRadius: 20,
+    barThickness: 30
+    }]
+    },
+    options: {
+    ...commonOptions,
+    plugins: { legend: { display: false } },
+    scales: {
+    x: { grid: { display: false } },
+    y: { beginAtZero: true, grid: { color: '#eee' } }
+    }
+    }
+    });
+    });
+
+    // --- 2. Top Category Doughnut ---
+    fetch('/Expenses/GetChart')
+    .then(res => res.json())
+    .then(data => {
+    new Chart(document.getElementById('categoryChart'), {
+    type: 'doughnut',
+    data: {
+    labels: data.map(d => d.category),
+    datasets: [{
+    data: data.map(d => d.total),
+    backgroundColor: ['#5e5ce6', '#ffcc00', '#34c759', '#af52de'],
+    borderWidth: 0,
+    borderRadius: 15,
+    spacing: 10,
+    cutout: '75%'
+    }]
+    },
+    options: {
+    ...commonOptions,
+    plugins: {
+    legend: {
+    position: 'right',
+    labels: { usePointStyle: true, padding: 15 }
+    }
+    }
+    }
+    });
+    });
+</script>
